@@ -1,11 +1,36 @@
+fs.readFile("home.html", (err, data) => {
+  if (err) {
+    res.writeHead(500);
+    res.end("Home page not found");
+    return;
+  }
+
+  res.writeHead(200, { "Content-Type": "text/html" });
+  res.end(data);
+});
+
 const http = require("http");
+const fs = require("fs");
+
 const server = http.createServer((req, res) => {
   if (req.url === "/") {
-    res.end("Home Page");
+    fs.readFile("home.html", (err, data) => {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(data);
+    });
   } else if (req.url === "/about") {
-    res.end("About Page");
+    fs.readFile("about.html", (err, data) => {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(data);
+    });
   } else if (req.url === "/contact") {
-    res.end("Contact Page");
+    fs.readFile("contact.html", (err, data) => {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(data);
+    });
+  } else {
+    res.writeHead(404);
+    res.end("Page not found");
   }
 });
 
